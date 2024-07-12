@@ -101,8 +101,8 @@ const Cart = () => {
               <button type="button" className="btn" onClick={handleCheckout}>
                 Pay with Stripe
               </button>
-              <button type="button" className="btn" onclick="window.location.href='https://w 3docs.com'">
-                Chat With Us on WhatsApp
+              <button type="button" className="btn">
+                 <a href="https://wa.me/+23234680973">Chat With Us on WhatsApp</a>
               </button>
              
             
