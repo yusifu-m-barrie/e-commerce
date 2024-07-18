@@ -34,7 +34,7 @@ const Cart = () => {
 
   const generateWhatsAppLink = () => {
     const phoneNumber = '23234680973'; // Replace with your phone number
-    const message = cartItems.map(item => `I am in need of ${item.quantity} x ${item.name} (NLE${item.price})`).join(', ') + ` for a total of NLE${totalPrice}.`;
+    const message = cartItems.map(item => `I am in need of ${item.quantity} x ${item.name} (NLE${item.price}) - ${urlFor(item?.image[0])}`).join('\n') + `\n\nTotal: NLE${totalPrice}.`;
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   };
 
