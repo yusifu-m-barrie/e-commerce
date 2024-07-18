@@ -114,7 +114,7 @@ const Cart = () => {
               <br></br>
               <br></br>
               <a href={generateWhatsAppLink()} className="btn" target="_blank" rel="noopener noreferrer" >
-                Chat on WhatsApp
+                Pay through WhatsApp
               </a>
             </div>
           </div>
