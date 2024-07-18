@@ -23,22 +23,29 @@ const Cart = () => {
       body: JSON.stringify(cartItems),
     });
 
-    if(response.statusCode === 500) return;
-    
+    if (response.statusCode === 500) return;
+
     const data = await response.json();
 
     toast.loading('Redirecting...');
 
     stripe.redirectToCheckout({ sessionId: data.id });
-  }
+  };
+
+  const generateWhatsAppLink = () => {
+    const phoneNumber = '23234680973'; // Replace with your phone number
+    const message = cartItems.map(item => `I am in need of ${item.quantity} x ${item.name} (NLE${item.price})`).join(', ') + ` for a total of NLE${totalPrice}.`;
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  };
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button
-        type="button"
-        className="cart-heading"
-        onClick={() => setShowCart(false)}>
+          type="button"
+          className="cart-heading"
+          onClick={() => setShowCart(false)}
+        >
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
           <span className="cart-num-items">({totalQuantities} items)</span>
@@ -71,13 +78,15 @@ const Cart = () => {
                 </div>
                 <div className="flex bottom">
                   <div>
-                  <p className="quantity-desc">
-                    <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec') }>
-                    <AiOutlineMinus />
-                    </span>
-                    <span className="num" onClick="">{item.quantity}</span>
-                    <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc') }><AiOutlinePlus /></span>
-                  </p>
+                    <p className="quantity-desc">
+                      <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec')}>
+                        <AiOutlineMinus />
+                      </span>
+                      <span className="num" onClick="">{item.quantity}</span>
+                      <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc')}>
+                        <AiOutlinePlus />
+                      </span>
+                    </p>
                   </div>
                   <button
                     type="button"
@@ -91,6 +100,7 @@ const Cart = () => {
             </div>
           ))}
         </div>
+
         {cartItems.length >= 1 && (
           <div className="cart-bottom">
             <div className="total">
@@ -101,17 +111,17 @@ const Cart = () => {
               <button type="button" className="btn" onClick={handleCheckout}>
                 Pay with Stripe
               </button>
-              <button type="button" className="btn">
-                 <a href="https://wa.me/+23234680973">Chat With Us on WhatsApp</a>
-              </button>
-             
-            
+              <br></br>
+              <br></br>
+              <a href={generateWhatsAppLink()} className="btn" target="_blank" rel="noopener noreferrer" >
+                Chat on WhatsApp
+              </a>
             </div>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
